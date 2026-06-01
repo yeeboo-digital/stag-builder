@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
+import yeebooLogo from "@/public/yeeboo-white-logo.png";
 import WorkflowWarning from "@/components/WorkflowWarning";
 import Wizard from "@/components/Wizard";
 import AiAssist from "@/components/AiAssist";
@@ -18,10 +20,13 @@ export default function Home() {
       {/* Header */}
       <header className="bg-navy">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
-          <div className="flex items-baseline gap-3">
-            <span className="text-lg font-extrabold tracking-wide text-white">
-              YEEBOO
-            </span>
+          <div className="flex items-center gap-3">
+            <Image
+              src={yeebooLogo}
+              alt="Yeeboo"
+              priority
+              className="h-7 w-auto"
+            />
             <span className="text-lg font-semibold text-teal">
               S-Tag Builder
             </span>
