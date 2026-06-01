@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --page-bg: #f4f7fa;
+}
+
+html,
+body {
+  background-color: var(--page-bg);
+  color: #1e293b;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Thin, subtle scrollbar for the dark code block */
+pre::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+pre::-webkit-scrollbar-thumb {
+  background-color: rgba(148, 163, 184, 0.4);
+  border-radius: 4px;
+}
