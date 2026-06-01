@@ -106,23 +106,8 @@ export async function POST(req: NextRequest) {
     });
   } catch (error) {
     console.error("Generate error:", error);
-    // Safe diagnostic (no secrets): surfaces Anthropic's error class/status so
-    // deploy issues can be diagnosed. Remove once the deployment is confirmed.
-    const e = error as {
-      status?: number;
-      name?: string;
-      message?: string;
-      error?: { type?: string };
-    };
     return NextResponse.json(
-      {
-        error: "Generation failed. Please try again.",
-        detail: {
-          status: e?.status ?? null,
-          type: e?.error?.type ?? e?.name ?? null,
-          message: typeof e?.message === "string" ? e.message.slice(0, 200) : null,
-        },
-      },
+      { error: "Generation failed. Please try again." },
       { status: 500 }
     );
   }
