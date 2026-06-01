@@ -93,14 +93,24 @@ your WordPress hosting, or on GitHub Pages.
 The island is plain static files; it needs Next.js only at **build time** to
 generate them, then runs entirely in the browser.
 
-If you want it under a WordPress subdirectory like
-`yeeboodigital.com/tools/s-tag-builder/`, it needs a `basePath` so asset URLs
-resolve. Ask and I'll wire `basePath`/`assetPrefix` into the island build; then:
+**Root host** (e.g. GitHub Pages user/org site, or a dedicated host):
 
 ```bash
-npm run build:island      # produces ./out
+npm run build:island      # produces ./out with root-relative asset paths
+# upload the contents of ./out to the host root
+```
+
+**WordPress subdirectory** (e.g. `yeeboodigital.com/tools/s-tag-builder/`) — set
+`ISLAND_BASE_PATH` so all asset/page URLs resolve under that path:
+
+```bash
+ISLAND_BASE_PATH=/tools/s-tag-builder npm run build:island
 # SFTP the contents of ./out to your WP host at /tools/s-tag-builder/
 ```
+
+`ISLAND_BASE_PATH` must start with `/` and not end with `/`, and must match the
+folder you upload to. It applies only to the static island build — the Vercel
+server build (Path A) always serves from root and ignores it.
 
 WordPress (PHP) doesn't render it — the same web server just serves the files
 sitting next to your WP install.
