@@ -1,6 +1,6 @@
 # Yeeboo S-Tag Builder — Claude Code Spec
 ## Project: Luminate Online S-Tag & Conditional Code Generator
-## Owner: Yeeboo Digital | yeeboo.com
+## Owner: Yeeboo Digital | yeeboodigital.com
 ## Status: Ready to build
 
 ---
@@ -81,7 +81,7 @@ stag-builder/
 ANTHROPIC_API_KEY=sk-ant-...
 
 # Optional: rate limiting / analytics
-NEXT_PUBLIC_SITE_URL=https://stag-builder.yeeboo.com
+NEXT_PUBLIC_SITE_URL=https://s-tags.yeeboodigital.com
 ```
 
 `.env.example`:
@@ -387,7 +387,7 @@ export const metadata = {
   openGraph: {
     title: "S-Tag Builder — Yeeboo Digital",
     description: "Generate Luminate Online S-tag code in plain English.",
-    url: "https://stag-builder.yeeboo.com",
+    url: "https://s-tags.yeeboodigital.com",
   },
 };
 ```
@@ -461,4 +461,4 @@ Before going live:
 ---
 
 *Built by Yeeboo Digital for BB Dev Days 2026 and published as a free community tool.*
-*Questions: erik@yeeboo.com*
+*Questions: erik@yeeboodigital.com*

@@ -3,7 +3,7 @@
 A free, publicly accessible tool that helps Blackbaud Luminate Online users generate
 S-tag and conditional logic code for email personalization — in plain English.
 
-Built by [Yeeboo Digital](https://yeeboo.com) for BB Dev Days 2026 and published as a free community resource.
+Built by [Yeeboo Digital](https://yeeboodigital.com) for BB Dev Days 2026 and published as a free community resource.
 
 ---
 
@@ -149,4 +149,4 @@ MIT — free to use, fork, and adapt.
 
 ---
 
-*Questions: erik@yeeboo.com | [yeeboo.com](https://yeeboo.com)*
+*Questions: erik@yeeboodigital.com | [yeeboodigital.com](https://yeeboodigital.com)*
