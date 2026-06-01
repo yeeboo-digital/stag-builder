@@ -114,3 +114,20 @@ server build (Path A) always serves from root and ignores it.
 
 WordPress (PHP) doesn't render it — the same web server just serves the files
 sitting next to your WP install.
+
+### Automated island deploys (GitHub Actions)
+
+Two ready-made workflows in `.github/workflows/`:
+
+**`island-pages.yml` → GitHub Pages** (free, zero credentials). Publishes the
+island to `https://<owner>.github.io/<repo>/` on every push to `main`. It sets
+`ISLAND_BASE_PATH=/<repo>` automatically.
+- One-time: repo → **Settings → Pages → Source: "GitHub Actions"**. Then push.
+
+**`island-wphost.yml` → your WordPress host** (FTPS, manual trigger). Builds for
+your subdirectory and uploads `./out`. Stays dormant until you configure:
+- Secrets: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`
+- Variables: `ISLAND_BASE_PATH` (e.g. `/tools/s-tag-builder`), `FTP_SERVER_DIR`
+  (e.g. `/public_html/tools/s-tag-builder/`)
+- Run it from the **Actions** tab when you want to publish. (Uses FTPS — if your
+  host needs SFTP-over-SSH, swap the upload step for an SFTP action.)
