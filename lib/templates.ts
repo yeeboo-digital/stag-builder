@@ -173,22 +173,22 @@ export const TEMPLATES: StagTemplate[] = [
   {
     id: "three-way",
     label: "Three-way split",
-    blurb: "Major / mid-level / general — three messages by donor tier.",
+    blurb: "Three messages: Group 1, Group 2, or everyone else — checked in order.",
     context: "broadcast",
     fields: [
-      { name: "majorId", label: "Major donor group ID", type: "text", default: "MAJOR_ID" },
-      { name: "majorContent", label: "Content for major donors", type: "textarea", default: "<p>Your leadership gift puts you among our most dedicated supporters.</p>" },
-      { name: "midId", label: "Mid-level group ID", type: "text", default: "MID_ID" },
-      { name: "midContent", label: "Content for mid-level donors", type: "textarea", default: "<p>Donors at your level make a profound difference.</p>" },
+      { name: "group1Id", label: "Group 1 ID", type: "text", default: "GROUP_1_ID" },
+      { name: "group1Content", label: "Content for Group 1", type: "textarea", default: "<p>Content for Group 1 members.</p>" },
+      { name: "group2Id", label: "Group 2 ID", type: "text", default: "GROUP_2_ID" },
+      { name: "group2Content", label: "Content for Group 2", type: "textarea", default: "<p>Content for Group 2 members.</p>" },
       { name: "generalContent", label: "Content for everyone else", type: "textarea", default: "<p>Thank you for your support. Every gift helps us.</p>" },
     ],
     generate: (v) => {
-      const inner = `[[?[[S45:${v.midId}]]::TRUE::\n${indent(v.midContent, 2)}\n::\n${indent(v.generalContent, 2)}\n]]`;
-      const code = `[[?[[S45:${v.majorId}]]::TRUE::\n${indent(v.majorContent)}\n::\n${indent(inner)}\n]]`;
+      const inner = `[[?[[S45:${v.group2Id}]]::TRUE::\n${indent(v.group2Content, 2)}\n::\n${indent(v.generalContent, 2)}\n]]`;
+      const code = `[[?[[S45:${v.group1Id}]]::TRUE::\n${indent(v.group1Content)}\n::\n${indent(inner)}\n]]`;
       return {
         code,
         explanation: withReminder(
-          `Checks the major-donor group (${v.majorId}) first; if not a match, checks the mid-level group (${v.midId}); otherwise falls through to general content. Replace both group IDs with your numeric IDs.`
+          `Checks Group 1 (${v.group1Id}) first; if not a match, checks Group 2 (${v.group2Id}); otherwise falls through to the general content. Replace both group IDs with your numeric IDs.`
         ),
       };
     },
