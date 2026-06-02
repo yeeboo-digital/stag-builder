@@ -5,11 +5,12 @@ import Image from "next/image";
 import yeebooLogo from "@/public/yeeboo-white-logo.png";
 import WorkflowWarning from "@/components/WorkflowWarning";
 import Wizard from "@/components/Wizard";
+import TagSearch from "@/components/TagSearch";
 import AiAssist from "@/components/AiAssist";
 import TagReference from "@/components/TagReference";
 import { AI_ENABLED } from "@/lib/config";
 
-type Tab = "guided" | "ai";
+type Tab = "guided" | "lookup" | "ai";
 
 export default function Home() {
   const [tab, setTab] = useState<Tab>("guided");
@@ -56,44 +57,45 @@ export default function Home() {
           </p>
         </section>
 
-        {/* Tabs — the AI tab only appears when AI mode is enabled */}
-        {AI_ENABLED && (
-          <div
-            role="tablist"
-            aria-label="Builder mode"
-            className="inline-flex rounded-lg border border-slate-200 bg-white p-1"
-          >
+        {/* Tabs — Guided builder + Tag lookup are always available (island-safe);
+            the AI tab only appears when AI mode is enabled. */}
+        <div
+          role="tablist"
+          aria-label="Builder mode"
+          className="inline-flex flex-wrap rounded-lg border border-slate-200 bg-white p-1"
+        >
+          {[
+            { id: "guided" as const, label: "Guided builder" },
+            { id: "lookup" as const, label: "Tag lookup" },
+            ...(AI_ENABLED
+              ? [{ id: "ai" as const, label: "Describe it with AI" }]
+              : []),
+          ].map((t) => (
             <button
+              key={t.id}
               role="tab"
-              aria-selected={tab === "guided"}
-              onClick={() => setTab("guided")}
+              aria-selected={tab === t.id}
+              onClick={() => setTab(t.id)}
               className={[
                 "rounded-md px-4 py-1.5 text-sm font-medium transition-colors",
-                tab === "guided"
+                tab === t.id
                   ? "bg-navy text-white"
                   : "text-slate-600 hover:text-navy",
               ].join(" ")}
             >
-              Guided builder
+              {t.label}
             </button>
-            <button
-              role="tab"
-              aria-selected={tab === "ai"}
-              onClick={() => setTab("ai")}
-              className={[
-                "rounded-md px-4 py-1.5 text-sm font-medium transition-colors",
-                tab === "ai"
-                  ? "bg-navy text-white"
-                  : "text-slate-600 hover:text-navy",
-              ].join(" ")}
-            >
-              Describe it with AI
-            </button>
-          </div>
-        )}
+          ))}
+        </div>
 
         {/* Panels */}
-        {AI_ENABLED && tab === "ai" ? <AiAssist /> : <Wizard />}
+        {tab === "lookup" ? (
+          <TagSearch />
+        ) : AI_ENABLED && tab === "ai" ? (
+          <AiAssist />
+        ) : (
+          <Wizard />
+        )}
       </main>
 
       <footer className="mx-auto max-w-5xl space-y-2 px-4 pb-10 pt-4 text-center text-xs text-slate-400">
