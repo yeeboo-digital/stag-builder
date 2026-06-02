@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import {
   searchTags,
   STAG_CATEGORIES,
+  BLACKBAUD_QUICK_REF,
   type StagEntry,
 } from "@/lib/stag-index";
 
@@ -68,20 +69,43 @@ function ResultCard({ entry }: { entry: StagEntry }) {
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
       <div className="mb-1 flex items-center justify-between gap-2">
-        <h3 className="text-sm font-semibold text-navy">{entry.name}</h3>
+        <h3 className="text-sm font-semibold text-navy">
+          {entry.name}{" "}
+          <span className="font-mono text-xs font-normal text-slate-400">
+            {entry.tag}
+          </span>
+        </h3>
         <ContextBadge context={entry.context} />
       </div>
       <p className="mb-3 text-sm leading-relaxed text-slate-600">
         {entry.description}
       </p>
-      <div className="flex items-stretch gap-2">
-        <pre className="flex-1 overflow-x-auto rounded-md bg-slate-900 px-3 py-2 font-mono text-[12px] leading-relaxed text-slate-200">
-          {entry.snippet}
-        </pre>
-        <div className="flex items-start">
-          <CopySnippet snippet={entry.snippet} />
+
+      {entry.note && (
+        <p className="mb-3 rounded-md bg-amber-50 px-3 py-2 text-xs text-amber-800">
+          ⚠️ {entry.note}
+        </p>
+      )}
+
+      {entry.snippet ? (
+        <div className="flex items-stretch gap-2">
+          <pre className="flex-1 overflow-x-auto rounded-md bg-slate-900 px-3 py-2 font-mono text-[12px] leading-relaxed text-slate-200">
+            {entry.snippet}
+          </pre>
+          <div className="flex items-start">
+            <CopySnippet snippet={entry.snippet} />
+          </div>
         </div>
-      </div>
+      ) : (
+        <a
+          href={BLACKBAUD_QUICK_REF}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center text-xs font-medium text-teal-dark underline decoration-teal/50 underline-offset-2 hover:decoration-teal"
+        >
+          Look up the syntax in Blackbaud&rsquo;s S-Tag reference ↗
+        </a>
+      )}
     </div>
   );
 }
